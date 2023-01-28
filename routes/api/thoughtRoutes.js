@@ -1,3 +1,14 @@
+const router = require('express').Router();
+const {
+  getThoughts,
+} = require('../../controllers/thoughtController.js');
+
+router.route('/').get(getThoughts); //.post(createUser);
+
+//router.route('/:userId').get(getSingleUser);
+
+module.exports = router;
+
 // //---------------------
 // /api/thoughts
 // - GET to get all thoughts
