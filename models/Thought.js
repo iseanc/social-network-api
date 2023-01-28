@@ -13,8 +13,7 @@ const thoughtSchema = new mongoose.Schema(
     // - Set default value to the current timestamp
     createdAt: { type: Date, default: Date.now },
     
-    
-    // username (The user that created this thought)
+    // username (that created this thought)
     // - String
     // - Required
     username: { type: String, required: true },
@@ -37,13 +36,10 @@ thoughtSchema.methods.formatDate = function () {
   const localeDateTime = `${this.createdAt.toLocaleDateString()} ${this.createdAt.toLocaleTimeString()}`;
   
   return localeDateTime;
-  // console.log("ran thoughtSchema.formatDate");
-  // return this.createdAt.toLocaleDateString();
 };
 
 thoughtSchema
   .virtual('createdAtFormatted')
-  // .get(Date.now);
   .get(thoughtSchema.methods.formatDate);
 
 
