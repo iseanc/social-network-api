@@ -92,6 +92,12 @@ thoughtSchema
   .virtual('thoughtCreatedAtLoc')
   .get(thoughtSchema.methods.formatDate);
 
+thoughtSchema
+  .virtual('reactionCount')
+  .get(function () {
+    return this.reactions.length;
+  });
+
 const Thought = mongoose.model('Thought', thoughtSchema);
 
 const handleError = (err) => console.error(err);
