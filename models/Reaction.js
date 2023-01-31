@@ -16,7 +16,7 @@ const reactionSchema = new mongoose.Schema({
 // Using mongoose.model() to compile a model based on the schema
 // 'Reaction' is the name of the model
 // reactionSchema is the name of the schema we are using to create a new instance of the model
-const Reaction = mongoose.model('Reaction', reactionSchema);
+const Reaction = mongoose.model('reaction', reactionSchema);
 
 // Error handler function to be called when an error occurs when trying to save a document
 const handleError = (err) => console.error(err);

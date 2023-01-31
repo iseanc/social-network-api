@@ -45,7 +45,7 @@ thoughtSchema
   .virtual('createdAtFormatted')
   .get(thoughtSchema.methods.formatDate);
 
-const Thought = mongoose.model('Thought', thoughtSchema);
+const Thought = mongoose.model('thought', thoughtSchema);
 
 const handleError = (err) => console.error(err);
 

@@ -39,12 +39,13 @@ module.exports = {
     //   res.status(500).json(err)
     // });
     Thought.findOneAndUpdate(
-      // Finds first document with name of "Kids"
+      // Finds first document matching thoughId
       { _id: req.params.thoughtId },
       // Replaces name with value in URL param
       { 
         $set: {
-          thoughtText: req.body.thoughtText},
+          thoughtText: req.body.thoughtText
+        },
         $currentDate: {
           createdAt: true
         }
