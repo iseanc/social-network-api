@@ -1,4 +1,4 @@
-const {Thought} = require('../models')
+const {Thought, User} = require('../models')
 
 module.exports = {
   getAllThoughts(req, res) {
@@ -12,7 +12,22 @@ module.exports = {
   // (don't forget to push the created thought's _id to the associated user's thoughts array field)
   createThought(req, res){
     Thought.create(req.body)
-      .then((thought) => res.json(thought))
+      .then((thought) => {
+        // res.json(thought)
+        return User.findOneAndUpdate(
+          // { _id: req.body.userId },
+          { username: req.body.username},
+          { $addToSet: { thoughts: thought._id } },
+          { new: true }
+        );
+      })
+      .then((user) =>
+        !user
+          ? res
+              .status(404)
+              .json({ message: 'Thought created, but found no user with that ID' })
+          : res.json('Created the post 🎉')
+      )
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err)
@@ -71,5 +86,11 @@ module.exports = {
         : res.json(thought)
     )
     .catch((err) => res.status(500).json(err));
+  },
+  postReaction(req, res){
+
+  },
+  deleteReaction(req, res){
+
   },
 }
