@@ -12,14 +12,14 @@ const userSchema = new mongoose.Schema({
   thoughts: [
     { 
       type: mongoose.Schema.Types.ObjectId, 
-      ref: 'thought'
+      ref: 'Thought'
     },
   ],
   // TODO: friends: Array of _id values referencing the User model (self-reference)
   friends: [
     { 
       type: mongoose.Schema.Types.ObjectId, 
-      ref: 'user'
+      ref: 'User'
     },
   ],
 });
@@ -29,7 +29,7 @@ const userSchema = new mongoose.Schema({
 
 // 'User' is the name of the model
 // userSchema is the name of the schema we are using to create a new instance of the model
-const User = mongoose.model('user', userSchema);
+const User = mongoose.model('User', userSchema);
 
 // Error handler function to be called when an error occurs when trying to save a document
 const handleError = (err) => {
