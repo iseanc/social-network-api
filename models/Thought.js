@@ -1,5 +1,54 @@
 // Define Mongoose
 const mongoose = require('mongoose');
+const { Schema, Types } = require('mongoose');
+
+// Reaction
+// Schema Settings:
+// - This will not be a model, but rather will be used as the reaction field's subdocument schema in the Thought model.
+const reactionSchema = new mongoose.Schema(
+  { 
+    // reactionId, ObjectId data type, Default value is set to a new ObjectId
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
+    },
+    // reactionBody, String, Required, 280 character maximum
+    reactionBody: {
+      type: String,
+      required: true,
+      maxlength: 280,
+    },
+    // username, String, Required
+    username: {
+      type: String,
+      required: true,
+    },
+    // createdAt, Date, default value to tcurrent timestamp
+    createdAt: {
+      type: Date,
+      default: Date.now,
+    },
+  },
+  {
+    toJSON: {
+      virtuals: true,
+    },
+    id: false,
+  }
+  )
+  
+  // Use a getter method to format the timestamp on query
+  reactionSchema.methods.formatDate = function () {
+    
+    const localeDateTime = `${this.createdAt.toLocaleDateString()} ${this.createdAt.toLocaleTimeString()}`;
+  
+  return localeDateTime;
+};
+
+reactionSchema
+  .virtual('reactionCreatedAtLoc')
+  .get(reactionSchema.methods.formatDate);
+
 
 // Mongoose schema instance defines shape of Thought documents
 const thoughtSchema = new mongoose.Schema(
@@ -17,13 +66,11 @@ const thoughtSchema = new mongoose.Schema(
       type: String, 
       required: true,
     },
-    // createdAt, 
-    // - Date
-    // - Set default value to the current timestamp
+    // createdAt, Date, Set default value to the current timestamp
     createdAt: { type: Date, default: Date.now },
     // reactions (These are like replies)
     // - Array of nested documents created with the reactionSchema
-    // reactions: [Reaction],
+    reactions: [reactionSchema],
   },
   {
     toJSON: {
@@ -33,7 +80,7 @@ const thoughtSchema = new mongoose.Schema(
   }
 );
 
-// - TODO: Use a getter method to format the timestamp on query
+// Use a getter method to format the timestamp on query
 thoughtSchema.methods.formatDate = function () {
   
   const localeDateTime = `${this.createdAt.toLocaleDateString()} ${this.createdAt.toLocaleTimeString()}`;
@@ -42,7 +89,7 @@ thoughtSchema.methods.formatDate = function () {
 };
 
 thoughtSchema
-  .virtual('createdAtFormatted')
+  .virtual('thoughtCreatedAtLoc')
   .get(thoughtSchema.methods.formatDate);
 
 const Thought = mongoose.model('thought', thoughtSchema);
