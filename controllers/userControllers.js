@@ -9,7 +9,7 @@ module.exports = {
         res.status(500).json(err);
       });
   },
-  // (don't forget to push the created user's _id to the associated user's users array field)
+  // push the created user's _id to the associated user's users array field
   createUser(req, res){
     User.create(req.body)
       .then((user) => res.json(user))
@@ -22,7 +22,6 @@ module.exports = {
     User.findOne({ _id: req.params.userId })
       .select('-__v')
       .populate('thoughts')
-      // .populate({ path: 'thoughts', select: '-__v' })
       .populate('friends')
       .then((user) =>
         !user
