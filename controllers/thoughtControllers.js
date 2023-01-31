@@ -44,7 +44,8 @@ module.exports = {
       // Replaces name with value in URL param
       { 
         $set: {
-          thoughtText: req.body.thoughtText},
+          thoughtText: req.body.thoughtText
+        },
         $currentDate: {
           createdAt: true
         }

@@ -34,10 +34,9 @@ module.exports = {
       // Replaces name with value in URL param
       { 
         $set: {
-          userText: req.body.userText},
-        $currentDate: {
-          createdAt: true
-        }
+          username: req.body.username,
+          email: req.body.email,
+        },
       },
       // Sets to true so updated document is returned; Otherwise original document will be returned
       { new: true },
@@ -62,9 +61,9 @@ module.exports = {
     .catch((err) => res.status(500).json(err));
   },
   addFriend(req, res) {
-
+    return "addFriend()"
   },
   deleteFriend(req, res) {
-
+    return "deleteFriend()"
   },
 }
