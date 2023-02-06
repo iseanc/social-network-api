@@ -42,16 +42,6 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   updateThought(req, res){
-    // Thought.updateOne({ _id: req.params.thoughtId })
-    // .then((thought) =>
-    //   !thought
-    //     ? res.status(404).json({ message: 'No thought with that ID' })
-    //     : res.json(thought)
-    // )
-    // .catch((err) => {
-    //   console.log(err);
-    //   res.status(500).json(err)
-    // });
     Thought.findOneAndUpdate(
       // Finds first document matching thoughId
       { _id: req.params.thoughtId },
@@ -64,7 +54,7 @@ module.exports = {
           createdAt: true
         }
       },
-      // Sets to true so updated document is returned; Otherwise original document will be returned
+      // return updated document
       { new: true },
       (err, result) => {
         if (result) {
@@ -112,7 +102,6 @@ module.exports = {
     );
   },
   deleteReaction(req, res){
-    // res.json('ran deleteReaction')
     Thought.findByIdAndUpdate(
       { _id: req.params.thoughtId },
       { $pull: { reactions: { reactionId: req.params.reactionId } } },

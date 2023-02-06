@@ -17,18 +17,12 @@ router.route('/:userId')
   .delete(deleteUser);
   // - BONUS: Remove a user's associated users when deleted.
 
-  
-  // // example data
-  // {
-  //   "username": "lernantino",
-  //   "email": "lernantino@gmail.com"
-  // }
-    
-//---------------------
+router.route('/:userId/friends')
+  // - POST to add a new friend to a user's friend list
+  .post(addFriend);
+
 // /api/users/:userId/friends/:friendId
 router.route('/:userId/friends/:friendId')
-  // - POST to add a new friend to a user's friend list
-  .post(addFriend)
   // - DELETE to remove a friend from a user's friend list
   .delete(deleteFriend);
   

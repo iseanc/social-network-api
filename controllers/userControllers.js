@@ -31,12 +31,13 @@ module.exports = {
       .catch((err) => res.status(500).json(err));
   },
   updateUser(req, res){
-    User.findOneAndUpdate(
+    console.log('ran updateUser')
+    User.findByIdAndUpdate(
       // Finds first document matching userId and
       { _id: req.params.userId },
       // Replaces name with value in URL param
       { 
-        $set: {
+        $addToSet: {
           username: req.body.username,
           email: req.body.email,
         },
@@ -64,9 +65,49 @@ module.exports = {
     .catch((err) => res.status(500).json(err));
   },
   addFriend(req, res) {
-    return "addFriend()"
+    console.log('ran addFriend')
+    User.findOneAndUpdate(
+      // Finds first document matching username/email
+      { username: req.body.username, email: req.body.email },
+      // updates user with same infor, or creates new if not exists
+      { $set: { username: req.body.username, email: req.body.email }},
+      // return updated doc
+      { new: true, upsert: true},
+      // (err, result) => {
+      //   if (result) {
+      //     res.status(200).json(result);
+      //     console.log(`Updated: ${result}`);
+      //   } else {
+      //     console.log(err);
+      //     res.status(500).json({ message: 'something went wrong' });
+      //   }
+      // }
+    )
+    .then((user) => {
+      console.log(user._id)
+      return User.findOneAndUpdate(
+        // { _id: req.body.userId },
+        { username: req.params.userId},
+        { $addToSet: { thoughts: user._id } },
+        { new: true }
+      );
+    })
+    .then((user) => { console.log(User.find({_id: req.params.userId})); res.json('')});
   },
   deleteFriend(req, res) {
-    return "deleteFriend()"
+    User.findByIdAndUpdate(
+      { _id: req.params.userId },
+      { $pull: { friends: { friendId: req.params.friendId } } },
+      { new: true },  //runValidators: true,
+      (err, result) => {
+        if (result) {
+          res.status(200).json(result);
+          console.log(`Updated: ${result}`);
+        } else {
+          console.log(err);
+          res.status(500).json({ message: 'something went wrong' });
+        }
+      }
+    )
   },
 }

@@ -104,13 +104,6 @@ const Thought = mongoose.model('Thought', thoughtSchema);
 
 const handleError = (err) => console.error(err);
 
-// Uses model to create new instance including subdocument
-// const thoughts = { name: 'Taylor', salary: 80000 };
-// const employeeData = [
-//   { name: 'Ann', salary: 40000 },
-//   { name: 'Liu', salary: 50000 },
-// ];
-
 // Thought.create(
 //   { thoughtText: 'I think therefore I thought.', 
 //     username: 'Sean', },
