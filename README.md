@@ -30,7 +30,7 @@ Use an application such as Insomnia to perform CRUD operations on the database. 
 
 **Users**
 
-- Create a user: submit a JSON-formatted POST request to `/api/users`
+- Create a user: submit a JSON-formatted POST request to `/api/users`.  Both *username* and *email* are required.
 
     `{
         "username": "YourName",
@@ -50,7 +50,7 @@ Use an application such as Insomnia to perform CRUD operations on the database. 
 
 **Thoughts**
 
-- Create a Thought: submit a JSON-formatted POST request to `/api/thoughts`
+- Create a Thought: submit a JSON-formatted POST request to `/api/thoughts`. NOTE: If the user in not found, the Thought will still be created and a message displayed that the user was not found.
 
     `{
         "thoughtText": "user's thoughts here",
