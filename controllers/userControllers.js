@@ -35,9 +35,8 @@ module.exports = {
     User.findByIdAndUpdate(
       // Finds first document matching userId and
       { _id: req.params.userId },
-      // Replaces name with value in URL param
       { 
-        $addToSet: {
+        $set: {
           username: req.body.username,
           email: req.body.email,
         },
