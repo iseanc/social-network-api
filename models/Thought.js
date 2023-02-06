@@ -1,6 +1,7 @@
 // Define Mongoose
 const mongoose = require('mongoose');
 const { Schema, Types } = require('mongoose');
+// const reactionSchema = require('./Reaction');
 
 // Reaction
 // Schema Settings:
@@ -8,6 +9,7 @@ const { Schema, Types } = require('mongoose');
 const reactionSchema = new mongoose.Schema(
   { 
     // reactionId, ObjectId data type, Default value is set to a new ObjectId
+    // _id: {
     reactionId: {
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId(),
