@@ -69,13 +69,23 @@ Use an application such as Insomnia to perform CRUD operations on the database. 
 
 **Friends**
 
+- Create and Delete Friends is NOT currently working
+
 **Reaction**
 
-To add a screenshot, create an `assets/images` folder in your repository and upload your screenshot to it. Then, using the relative filepath, add it to your README using the following syntax:
+- Create reaction: submit a JSON-formatted POST request to `/api/thoughts/thoughtId/reactions`.
 
-    ```md
-    ![alt text](assets/images/screenshot.png)
-    ```
+    `{
+        "reactionBody": "Very bad indeed",
+        "username": "ernie"
+    }`
+
+- Delete reaction: submit a DELETE request to  `/api/thoughts/thoughtId/reactions/reactionId`.
+
+**DEMO**
+
+[![Demo Video](/assets/images/social-media-api.png)](https://drive.google.com/file/d/1-jx4TAD_CvU2XC4gVCrPnApU3rKqf1Eu/view?usp=sharing)
+
 
 ## License
 
