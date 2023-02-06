@@ -109,25 +109,25 @@ module.exports = {
           res.status(500).json({ message: 'something went wrong' });
         }
       }
-    )
-    // .then((thought) => {
-    //   return User.findOneAndUpdate(
-    //     // { _id: req.body.userId },
-    //     { username: req.body.username},
-    //     { $addToSet: { thoughts: thought._id } },
-    //     { new: true }
-    //   );
-    // })
-    ;
+    );
   },
   deleteReaction(req, res){
     // res.json('ran deleteReaction')
     Thought.findByIdAndUpdate(
       { _id: req.params.thoughtId },
       { $pull: { reactions: { reactionId: req.params.reactionId } } },
-      { new: true }  //runValidators: true,
+      { new: true },  //runValidators: true,
+      (err, result) => {
+        if (result) {
+          res.status(200).json(result);
+          console.log(`Updated: ${result}`);
+        } else {
+          console.log(err);
+          res.status(500).json({ message: 'something went wrong' });
+        }
+      }
     )
-    .then((thought) => res.json(thought))
+    //.then((thought) => res.json(thought))
     // .then((thought) =>
     //     !thought
     //       ? res
